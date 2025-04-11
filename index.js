@@ -4,6 +4,7 @@ const jiraInput = document.getElementById('jira');
 const descriptionInput = document.getElementById('description');
 const copiedSpan = document.getElementById('copied');
 const errorSpan = document.getElementById('error');
+const submitBtn = document.getElementById('submitButton');
 
 const BRANCH_BASE = 'branchBase';
 
@@ -13,7 +14,7 @@ async function copyTextToClipboard(text) {
     } catch (err) {
         alert('Failed to copy: ', err);
     }
-  }
+}
 
 form.addEventListener('submit', async function(event) {
     event.preventDefault();
@@ -51,6 +52,11 @@ form.addEventListener('submit', async function(event) {
 
     await copyTextToClipboard(branchName);
     copiedSpan.textContent = branchName;
+    submitBtn.textContent = 'Copied!';
+
+    setTimeout(() => {
+        submitBtn.textContent = 'Copy';
+    }, 500);
 });
 
 function checkLocalStorage() {
@@ -60,6 +66,4 @@ function checkLocalStorage() {
     }
 }
 
-copiedSpan.textContent = '';
-errorSpan.textContent = '';
 checkLocalStorage();
