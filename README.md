@@ -1,1 +1,3 @@
-Paste default naming structure with name of JIRA ticket to get a default branch name created.
+# Branch Namer
+
+Create and copy to clipboard a branch name based on a base value, jira ticket, and description.
