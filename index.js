@@ -31,7 +31,7 @@ form.addEventListener('submit', async function(event) {
         errorSpan.textContent = 'Please fill in all fields';
         return;
     }
-    
+
     const ticketMatcher = jiraValue.indexOf('?') > -1 ? (/(?<=\SHRP-).+?(?=\?)/) : /(?<=\SHRP-).+/;
     const ticketResult = jiraValue.match(ticketMatcher);
     if (!ticketResult) {
@@ -43,7 +43,7 @@ form.addEventListener('submit', async function(event) {
     const jiraTicket = `${jiraRoot}-${ticketResult[0]}`;
     const description = descriptionValue.split(' ').map(str => str.toLowerCase()).join('-')
 
-    const branchName = `${branchBase}/${jiraTicket}/${description}`;
+    const branchName = `${branchBase}/${jiraTicket}-${description}`;
 
     if (!storedBranchBase || storedBranchBase !== branchBase) {
         localStorage.setItem(BRANCH_BASE, branchBase);
