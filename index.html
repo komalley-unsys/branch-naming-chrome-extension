@@ -1,12 +1,28 @@
 <html>
   <body>
-    <h1>Name Your Branch</h1>
-    <form>
-        <input type="text" id="base" placeholder='Enter your root branch name (ex: "/freddie/jbob")'' />
-        <input type="text" id="jira" placeholder="Paste Jira Ticket" />
-        <input type="text" id="description" placeholder="Enter branch description" />
-        <button id="submitButton">Submit</button>
+    <h1>Name That Branch</h1>
+    <form id="form" action="">
+      <div class="input-group">
+        <label for="base">Branch Base</label>
+        <input type="text" name="base" id="base" placeholder='Ex: freddie/jbob' />
+      </div>
+      <div class="input-group">
+        <label for="jira">Jira Link</label>
+        <input type="text" name="jira" id="jira" placeholder="Paste Jira Link" />
+      </div>
+      <div class="input-group">
+        <label for="description">Description</label>
+        <input type="text" name="description" id="description" placeholder="Describe ticket request" />
+      </div>
+      <div>
+        <button type="submit" id="submitButton">COPY</button>
+      </div>
     </form>
+    <div class="message">
+      <span id="error"></span>
+      <span id="copied"></span>
+    </div>
     <script src="index.js"></script>
+    <link rel="stylesheet" href="index.css">
   </body>
 </html>

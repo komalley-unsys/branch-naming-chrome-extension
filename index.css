@@ -1,0 +1,42 @@
+body {
+    min-width: 400px;
+    padding: 5px;
+}
+h1 {
+    font-size: 18px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+.input-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+input {
+    border: 1px solid #ccc;
+    padding: 4px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+button {
+    width: 100px;
+    margin-top: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.message {
+    margin-top: 10px;
+    font-size: 14px;
+}
+#error {
+    color: red;
+}
