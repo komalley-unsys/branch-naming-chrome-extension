@@ -1,27 +1,63 @@
 <html>
   <body>
-    <h1>Name That Branch</h1>
-    <form id="form" action="">
-      <div class="input-group">
-        <label for="base">Branch Base</label>
-        <input type="text" name="base" id="base" placeholder='Ex: freddie/jbob' />
+    <header>
+      <nav class="navbar">
+        <div class="nav-container">
+          <span class="nav-link" id="branch">Branch</span>
+        </div>
+        <div class="nav-container">
+          <span class="nav-link" id="site-prefix">Site Prefixes</span>
+        </div>
+    </header>
+    <main>
+      <div class="main-container" id="branch-container">
+        <h1>Name That Branch</h1>
+        <form id="branch-form" action="">
+          <div class="input-group">
+            <label for="base">Branch Base</label>
+            <input type="text" name="base" id="base" placeholder='Ex: freddie/jbob' />
+          </div>
+          <div class="input-group">
+            <label for="jira">Jira Link</label>
+            <input autofocus="autofocus" type="text" name="jira" id="jira" placeholder="Paste Jira Link" />
+          </div>
+          <div class="input-group">
+            <label for="description">Description</label>
+            <input type="text" name="description" id="description" placeholder="Describe ticket request" />
+          </div>
+          <div>
+            <button type="submit" id="submitButton">Copy</button>
+          </div>
+        </form>
+        <div class="message">
+          <span id="error"></span>
+          <span id="copied"></span>
+        </div>
       </div>
-      <div class="input-group">
-        <label for="jira">Jira Link</label>
-        <input type="text" name="jira" id="jira" placeholder="Paste Jira Link" />
+  
+      <div class="main-container hide" id="site-prefix-container">
+        <h1>Remember That Prefix</h1>
+        <form id="suffix-form" action="">
+          <div class="input-group">
+            <label for="prefix">Add Prefix</label>
+            <input type="text" name="prefix" id="prefix" placeholder='Ex: sdhb-1' />
+          </div>
+          <div>
+            <button type="submit" id="submitButton">Store</button>
+          </div>
+        </form>
+        <div>
+          <ul id="prefix-list">
+            <!-- Prefixes will be dynamically added here -->
+          </ul>
+        </div>
+        <div class="message">
+          <span id="error"></span>
+          <span id="copied"></span>
+        </div>
       </div>
-      <div class="input-group">
-        <label for="description">Description</label>
-        <input type="text" name="description" id="description" placeholder="Describe ticket request" />
-      </div>
-      <div>
-        <button type="submit" id="submitButton">Copy</button>
-      </div>
-    </form>
-    <div class="message">
-      <span id="error"></span>
-      <span id="copied"></span>
-    </div>
+    </main>
+
     <script src="index.js"></script>
     <link rel="stylesheet" href="index.css">
   </body>

@@ -1,7 +1,38 @@
 body {
     min-width: 400px;
-    padding: 5px;
+    margin: 0;
 }
+.navbar {
+    padding: 10px;
+}
+main {
+    padding: 10px;
+}
+.navbar {
+    display: flex;
+    background-color: #f8f9fa;
+    padding: 5px;
+    border-bottom: 1px solid #dee2e6;
+}
+.nav-container {
+    display: flex;
+    margin-right: 5px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    border: 1px solid #545454 ;
+    background-color: #9d9d9d;
+    cursor: pointer;
+}
+
+.nav-link {
+    cursor: pointer;
+    color: white;
+    text-decoration: none;
+}
+.nav-link:hover {
+    text-decoration: underline;
+}
+
 h1 {
     font-size: 18px;
 }
@@ -39,4 +70,12 @@ button {
 }
 #error {
     color: red;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
 }
