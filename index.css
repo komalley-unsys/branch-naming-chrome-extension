@@ -24,6 +24,15 @@ main {
     cursor: pointer;
 }
 
+.nav-container.selected {
+    background-color: #007bff;
+    color: white;
+}
+
+.nav-container:not(.selected):hover {
+    background-color: #e2e6ea;
+}
+
 .nav-link {
     cursor: pointer;
     color: white;
@@ -41,17 +50,24 @@ form {
     flex-direction: column;
     align-items: flex-end;
 }
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
 .input-group {
     display: flex;
     flex-direction: column;
     width: 100%;
+    margin-bottom: 4px;
 }
 input {
     border: 1px solid #ccc;
     padding: 4px;
     font-size: 14px;
-    margin-bottom: 10px;
     border-radius: 4px;
+    height: 30px;
 }
 button {
     width: 100px;
@@ -68,7 +84,7 @@ button {
     margin-top: 10px;
     font-size: 14px;
 }
-#error {
+.prefix-error, .branch-error {
     color: red;
 }
 
@@ -78,4 +94,21 @@ button {
 
 .hide {
     display: none;
+}
+
+.prefix-submit {
+    height: 30px;
+    margin-left: 5px;
+}
+
+#prefix-list {
+    list-style-type: none;
+    padding: 0;
+    max-height: 160px;
+    overflow-y: auto;
+}
+#prefix-list li {
+    font-size: 14px;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
 }

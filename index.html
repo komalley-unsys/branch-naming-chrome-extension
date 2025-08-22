@@ -2,16 +2,16 @@
   <body>
     <header>
       <nav class="navbar">
-        <div class="nav-container">
-          <span class="nav-link" id="branch">Branch</span>
-        </div>
-        <div class="nav-container">
-          <span class="nav-link" id="site-prefix">Site Prefixes</span>
-        </div>
+        <a class="nav-container selected" id="branch">
+         Branch
+        </a>
+        <a class="nav-container" id="site-prefix">
+          Prefixes
+        </a>
     </header>
     <main>
       <div class="main-container" id="branch-container">
-        <h1>Name That Branch</h1>
+        <h1>Name Your Branch</h1>
         <form id="branch-form" action="">
           <div class="input-group">
             <label for="base">Branch Base</label>
@@ -26,24 +26,26 @@
             <input type="text" name="description" id="description" placeholder="Describe ticket request" />
           </div>
           <div>
-            <button type="submit" id="submitButton">Copy</button>
+            <button class="branch-submit" type="submit" id="submitButton">Copy</button>
           </div>
         </form>
         <div class="message">
-          <span id="error"></span>
-          <span id="copied"></span>
+          <span class="branch-error"></span>
+          <span class="branch-copied"></span>
         </div>
       </div>
   
       <div class="main-container hide" id="site-prefix-container">
-        <h1>Remember That Prefix</h1>
+        <h1>Site Prefixes</h1>
         <form id="suffix-form" action="">
-          <div class="input-group">
-            <label for="prefix">Add Prefix</label>
-            <input type="text" name="prefix" id="prefix" placeholder='Ex: sdhb-1' />
-          </div>
-          <div>
-            <button type="submit" id="submitButton">Store</button>
+          <div class="flex-container">
+            <div class="input-group">
+              <label for="prefix">Add Prefix</label>
+              <input type="text" name="prefix" id="prefix" placeholder='Ex: sdherbert1' />
+            </div>
+            <div>
+              <button class="prefix-submit" type="submit" id="submitButton">Add</button>
+            </div>
           </div>
         </form>
         <div>
@@ -52,8 +54,8 @@
           </ul>
         </div>
         <div class="message">
-          <span id="error"></span>
-          <span id="copied"></span>
+          <span class="prefix-error"></span>
+          <span class="prefix-copied"></span>
         </div>
       </div>
     </main>

@@ -2,17 +2,23 @@ const branchForm = document.getElementById('branch-form');
 const suffixForm = document.getElementById('suffix-form');
 const mainContainers = document.querySelectorAll('.main-container');
 const navContainers = document.querySelectorAll('.nav-container');
+
 // BRANCHES
 const baseInput = document.getElementById('base');
 const jiraInput = document.getElementById('jira');
 const descriptionInput = document.getElementById('description');
+
+const branchCopiedSpan = document.querySelector('.branch-copied');
+const branchErrorSpan = document.querySelector('.branch-error');
+const branchSubmitBtn = document.querySelector('.branch-submit');
+
 // SUFFIXES
 const prefixInput = document.getElementById('prefix');
 const prefixList = document.getElementById('prefix-list');
+const prefixSubmitBtn = document.querySelector('.prefix-submit');
 
-const copiedSpan = document.getElementById('copied');
-const errorSpan = document.getElementById('error');
-const submitBtn = document.getElementById('submitButton');
+const prefixErrorSpan = document.querySelector('.prefix-error');
+const prefixCopiedSpan = document.querySelector('.prefix-copied');
 
 const BRANCH_BASE = 'branchBase';
 const JIRA_TICKET = 'jiraTicket';
@@ -31,8 +37,8 @@ async function copyTextToClipboard(text) {
 branchForm.addEventListener('submit', async function(event) {
     event.preventDefault();
 
-    copiedSpan.textContent = '';   
-    errorSpan.textContent = '';
+    branchCopiedSpan.textContent = '';   
+    branchErrorSpan.textContent = '';
     const storedBranchBase = localStorage.getItem(BRANCH_BASE);
 
     const branchBase = baseInput.value;
@@ -40,7 +46,7 @@ branchForm.addEventListener('submit', async function(event) {
     const descriptionValue = descriptionInput.value;
 
     if (!branchBase || !jiraValue || !descriptionValue) {
-        errorSpan.textContent = 'Please fill in all fields';
+        branchErrorSpan.textContent = 'Please fill in all fields';
         return;
     }
     
@@ -48,7 +54,7 @@ branchForm.addEventListener('submit', async function(event) {
     const ticketResult = jiraValue.match(ticketMatcher);
 
     if (!ticketResult) {
-        errorSpan.textContent = 'Invalid JIRA link or ticket number';
+        branchErrorSpan.textContent = 'Invalid JIRA link or ticket number';
         jiraInput.focus();
         return;
     }
@@ -68,12 +74,12 @@ branchForm.addEventListener('submit', async function(event) {
 
     const branchName = `${branchBase}/${jiraTicket}-${description}`;
     await copyTextToClipboard(branchName);
-    copiedSpan.textContent = branchName;
-    submitBtn.textContent = 'Copied!';
+    branchCopiedSpan.innerHTML = `Copied to clipboard:<p>${branchName}</p>`;
+    branchSubmitBtn.textContent = 'Copied!';
 
     setTimeout(() => {
-        submitBtn.textContent = 'Copy';
-    }, 500);
+        branchSubmitBtn.textContent = 'Copy';
+    }, 1000);
 });
 
 jiraInput.addEventListener('input', function() {
@@ -88,6 +94,7 @@ descriptionInput.addEventListener('input', function() {
 
 // SUFFIX
 function buildPrefixList(storedSuffixes) {
+    prefixList.innerHTML = ''; // Clear existing list items
     if (storedSuffixes) {
         storedSuffixes.forEach(suffix => {
             const listItem = document.createElement('li');
@@ -98,26 +105,32 @@ function buildPrefixList(storedSuffixes) {
 }
 
 suffixForm.addEventListener('submit', function(event) {
+    prefixErrorSpan.textContent = '';
     event.preventDefault();
 
-    const currentSitePrefixes = JSON.parse(localStorage.getItem(SUFFIXES)) || [];
     const prefixValue = prefixInput.value.trim();
-    console.log(currentSitePrefixes);
-
+    
     if (!prefixValue) {
-        errorSpan.textContent = 'Please enter a prefix';
+        prefixErrorSpan.textContent = 'Please enter a prefix';
         return;
     }
     
-    const updatedPrefixes = [
-        ...currentSitePrefixes,
-        prefixValue
-    ];
-
-    localStorage.setItem(SUFFIXES, JSON.stringify(updatedPrefixes));
-
-    buildPrefixList(updatedPrefixes);
+    const currentSitePrefixes = JSON.parse(localStorage.getItem(SUFFIXES)) || [];
+    if (currentSitePrefixes.find(prefix => prefix.toLowerCase() === prefixValue.toLowerCase())) {
+        prefixErrorSpan.textContent = 'Prefix already exists';
+        return;
+    }
+    currentSitePrefixes.push(prefixValue);
+    localStorage.setItem(SUFFIXES, JSON.stringify(currentSitePrefixes));
+    buildPrefixList(currentSitePrefixes);
     prefixInput.value = '';
+
+    prefixSubmitBtn.textContent = 'Added!';
+
+    setTimeout(() => {
+        prefixSubmitBtn.textContent = 'Add';
+    }, 1000);
+
 });
 
 function checkLocalStorage() {
@@ -139,20 +152,30 @@ function checkLocalStorage() {
     }
 }
 
-navContainers.forEach(navContainer => {
-    navContainer.addEventListener('click', function(e) {
-        const navLink = e.target.classList.contains('nav-link') ? e.target : e.target.closest('.nav-link');
-        const id = navLink.getAttribute('id');
-        const selectedContainer = document.getElementById(`${id}-container`);
-        selectedContainer.classList.add('show');
-        selectedContainer.classList.remove('hide');
-        
-        const nonSelectedContainers = Array.from(mainContainers).filter(container => container.id !== `${id}-container`);
-        nonSelectedContainers.forEach(container => {
-            container.classList.add('hide');
-            container.classList.remove('show');
-        });
+navContainers.forEach(nav => {
+    nav.addEventListener('click', function(e) {
+        const clickedNavId = e.target.getAttribute('id');
 
+        navContainers.forEach(nav => {
+            const navId = nav.getAttribute('id');
+            if (clickedNavId === navId) {
+                nav.classList.add('selected');
+            } else {
+                nav.classList.remove('selected');
+            }
+        });
+        
+        mainContainers.forEach(main => {
+            const navContainerId = main.getAttribute('id');
+            const selectedMainId = `${clickedNavId}-container`;
+            if (navContainerId === selectedMainId) {
+                main.classList.remove('hide');
+                main.classList.add('show');
+            } else {
+                main.classList.add('hide');
+                main.classList.remove('show');
+            }
+        });
     });
 });
 
